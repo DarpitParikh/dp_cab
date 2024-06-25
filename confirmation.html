@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Booking Confirmation</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+  </style>
+</head>
+<body>
+  <h2>Booking Confirmed</h2>
+  <p>Your cab has been booked!</p>
+  <p>Pickup: <span id="pickup"></span></p>
+  <p>Dropoff: <span id="dropoff"></span></p>
+  <script>
+    document.getElementById('pickup').innerText = localStorage.getItem('pickup');
+    document.getElementById('dropoff').innerText = localStorage.getItem('dropoff');
+  </script>
+</body>
+</html>

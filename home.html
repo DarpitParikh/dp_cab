@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Book a Cab</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    form { margin: 20px; }
+  </style>
+</head>
+<body>
+  <h2>Book a Cab</h2>
+  <form action="/book" method="POST">
+    <label for="pickup">Pickup Location:</label><br>
+    <input type="text" id="pickup" name="pickup"><br>
+    <label for="dropoff">Dropoff Location:</label><br>
+    <input type="text" id="dropoff" name="dropoff"><br><br>
+    <input type="submit" value="Book">
+  </form>
+</body>
+</html>
