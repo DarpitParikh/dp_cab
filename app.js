@@ -1,4 +1,3 @@
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -9,8 +8,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 let users = []; // In-memory user storage
-let bookings = []; // In-memory bookings storage
-let rideStatus = 'Waiting for driver...';
 
 app.post('/signup', (req, res) => {
   const { username, password } = req.body;
@@ -24,18 +21,17 @@ app.post('/login', (req, res) => {
   if (user) {
     res.redirect('/home.html');
   } else {
-    res.send('Invalid credentials');
+    res.status(401).send('Invalid credentials');
   }
 });
 
 app.post('/book', (req, res) => {
   const { pickup, dropoff } = req.body;
-  bookings.push({ pickup, dropoff });
   res.redirect('/confirmation.html');
 });
 
 app.get('/status', (req, res) => {
-  res.json({ message: rideStatus });
+  res.json({ message: 'Waiting for driver...' });
 });
 
 app.listen(3000, () => {
