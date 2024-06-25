@@ -3,83 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Website Title</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to your custom stylesheet -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            background-color: #f3f3f3;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-        }
-        nav {
-            background-color: #444;
-            padding: 10px 0;
-            text-align: center;
-        }
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-        nav ul li {
-            display: inline;
-            margin-right: 10px;
-        }
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            padding: 5px 10px;
-            transition: background-color 0.3s ease;
-        }
-        nav ul li a:hover {
-            background-color: #555;
-        }
-        .main-content {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-    </style>
+    <title>DP Cab Booking</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
 </head>
 <body>
     <header>
-        <h1>Welcome to LDRP_CABS</h1>
+        <div class="container">
+            <h1>Welcome to DP Cab Booking</h1>
+            <nav>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="confirmation.html">Confirmation</a></li>
+                    <li><a href="status.html">Status</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
-    <nav>
-        <ul>
-            <li><a href="home.html">Home</a></li>
-            <li><a href="login.html">Login</a></li>
-            <li><a href="confirmation.html">Confirmation</a></li>
-            <li><a href="status.html">Status</a></li>
-        </ul>
-    </nav>
-    <div class="main-content">
-        <h2>About Us</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque.</p>
-        <p>Phasellus gravida semper nisi. Nullam vel sem. Pellentesque libero tortor, tincidunt et, tincidunt eget, semper nec, quam.</p>
-        <p>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.</p>
-    </div>
+    <section class="hero">
+        <div class="container">
+            <h2>Book Your Cab with Ease</h2>
+            <p>Discover our seamless cab booking service.</p>
+            <a href="login.html" class="btn">Login</a>
+            <a href="home.html" class="btn">Explore More</a>
+        </div>
+    </section>
+    <section class="features">
+        <div class="container">
+            <h2>Why Choose Us?</h2>
+            <div class="feature-item">
+                <img src="images/feature1.jpg" alt="Feature 1">
+                <h3>Easy Booking</h3>
+                <p>Simple and intuitive booking process.</p>
+            </div>
+            <div class="feature-item">
+                <img src="images/feature2.jpg" alt="Feature 2">
+                <h3>Real-time Updates</h3>
+                <p>Track your cab in real-time.</p>
+            </div>
+            <div class="feature-item">
+                <img src="images/feature3.jpg" alt="Feature 3">
+                <h3>Secure Payment</h3>
+                <p>Safe and secure payment options.</p>
+            </div>
+        </div>
+    </section>
     <footer>
-        <p>&copy; 2024 LDRP CAB</p>
+        <div class="container">
+            <p>&copy; 2024 DP Cab Booking. All rights reserved.</p>
+        </div>
     </footer>
+    <script src="app.js"></script> <!-- Link to your JavaScript file -->
 </body>
 </html>
