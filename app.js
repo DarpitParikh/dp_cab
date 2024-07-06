@@ -10,9 +10,9 @@ const port = 3000;
 // MySQL Connection
 const db = mysql.createConnection({
   host: 'localhost',
-  user: 'your_mysql_username',
-  password: 'your_mysql_password',
-  database: 'your_database_name'
+  user: 'root',
+  password: '',
+  database: 'cab_booking_system'
 });
 
 db.connect((err) => {
