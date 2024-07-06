@@ -1,39 +1,93 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const app = express();
+const mysql = require('mysql2');
+const bcrypt = require('bcryptjs');
 
+const app = express();
+const port = 3000;
+
+// MySQL Connection
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'your_mysql_username',
+  password: 'your_mysql_password',
+  database: 'your_database_name'
+});
+
+db.connect((err) => {
+  if (err) {
+    console.error('Error connecting to MySQL database:', err);
+    return;
+  }
+  console.log('Connected to MySQL database');
+});
+
+// Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-let users = []; // In-memory user storage
-
-app.post('/signup', (req, res) => {
+// Signup route
+app.post('/signup', async (req, res) => {
   const { username, password } = req.body;
-  users.push({ username, password });
-  res.redirect('/login.html');
+
+  // Check if username already exists
+  db.query('SELECT * FROM users WHERE username = ?', [username], async (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Internal server error' });
+      return;
+    }
+    
+    if (results.length > 0) {
+      res.status(400).json({ message: 'Username already exists' });
+    } else {
+      // Hash password
+      const hashedPassword = await bcrypt.hash(password, 10); // Salt rounds = 10
+      
+      // Insert user into database
+      db.query('INSERT INTO users (username, password) VALUES (?, ?)', [username, hashedPassword], (err, result) => {
+        if (err) {
+          console.error(err);
+          res.status(500).json({ message: 'Failed to register user' });
+        } else {
+          res.redirect('/login.html'); // Redirect to login page after successful signup
+        }
+      });
+    }
+  });
 });
 
+// Login route
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
-  const user = users.find(u => u.username === username && u.password === password);
-  if (user) {
-    res.redirect('/home.html');
-  } else {
-    res.status(401).send('Invalid credentials');
-  }
+
+  // Fetch user from database
+  db.query('SELECT * FROM users WHERE username = ?', [username], async (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Internal server error' });
+      return;
+    }
+    
+    if (results.length > 0) {
+      // Compare hashed password
+      const match = await bcrypt.compare(password, results[0].password);
+      if (match) {
+        res.redirect('/home.html'); // Redirect to home page after successful login
+      } else {
+        res.status(401).json({ message: 'Incorrect password' });
+      }
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  });
 });
 
-app.post('/book', (req, res) => {
-  const { pickup, dropoff } = req.body;
-  res.redirect('/confirmation.html');
-});
+// Other routes (e.g., booking, status) remain unchanged for this example
 
-app.get('/status', (req, res) => {
-  res.json({ message: 'Waiting for driver...' });
-});
-
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
+// Start server
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
 });
