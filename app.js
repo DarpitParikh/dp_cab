@@ -13,6 +13,7 @@ const db = mysql.createConnection({
   user: 'root',
   password: '',
   database: 'cab_booking_system'
+  port: 3307
 });
 
 db.connect((err) => {
