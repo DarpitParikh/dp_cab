@@ -27,10 +27,6 @@ db.connect((err) => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
-const bodyParser = require('body-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
 
 // Signup route
 app.post('/signup', async (req, res) => {
@@ -43,13 +39,13 @@ app.post('/signup', async (req, res) => {
       res.status(500).json({ message: 'Internal server error' });
       return;
     }
-    
+
     if (results.length > 0) {
       res.status(400).json({ message: 'Username already exists' });
     } else {
       // Hash password
       const hashedPassword = await bcrypt.hash(password, 10); // Salt rounds = 10
-      
+
       // Insert user into database
       db.query('INSERT INTO users (username, password) VALUES (?, ?)', [username, hashedPassword], (err, result) => {
         if (err) {
@@ -74,7 +70,7 @@ app.post('/login', (req, res) => {
       res.status(500).json({ message: 'Internal server error' });
       return;
     }
-    
+
     if (results.length > 0) {
       // Compare hashed password
       const match = await bcrypt.compare(password, results[0].password);
@@ -89,7 +85,14 @@ app.post('/login', (req, res) => {
   });
 });
 
-// Other routes (e.g., booking, status) remain unchanged for this example
+// Handle 404 and 405 errors
+app.use((req, res, next) => {
+  res.status(404).json({ message: 'Route not found' });
+});
+
+app.use((req, res, next) => {
+  res.status(405).json({ message: 'Method not allowed' });
+});
 
 // Start server
 app.listen(port, () => {
