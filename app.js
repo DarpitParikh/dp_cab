@@ -11,7 +11,7 @@ const port = 3000;
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: '',
+  password: 'ldrp',
   database: 'cab_booking_system'
 });
 
@@ -96,5 +96,5 @@ app.use((req, res, next) => {
 
 // Start server
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server is running on http://localhost:${3306}`);
 });
